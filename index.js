@@ -3,10 +3,14 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
 const sendNotification = require('./sendMail')
+const cron =  require('node-cron');
+
 
 const url = 'https://www.mytek.tn/climatiseur-tunisie/11475-climeur-mobile-coala-7l.html';
 
-(async () => {
+const trackerPrice = async () => {
+
+    console.log("tracking...");
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/google-chrome-stable',
     })
@@ -29,8 +33,24 @@ const url = 'https://www.mytek.tn/climatiseur-tunisie/11475-climeur-mobile-coala
     })
 
     await browser.close();
-})();
+}
 
+
+(async () => {
+    /*
+ 1  second (optional)
+ 2  minute
+ 3  hour
+ 4  day of month
+ 5  month
+ 6  day of week
+*/
+
+    cron.schedule("0 */1 * * * *", async () => {
+        console.log(new Date().toLocaleString());
+        await trackerPrice();
+    });
+})();
 
 
 
