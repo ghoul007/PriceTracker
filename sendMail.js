@@ -16,7 +16,7 @@ module.exports = async (price, url) => {
         from: '"Price Notify" <*****@gmail.com>',
         to: process.env.GMAIL_TO,
         subject: 'Price dropped to ' + price,
-        text: 'Price dropped to ' + price,
+        text: 'Price dropped to ' +  price,
         html: `<a href=\"${url}\">Link</a>`
     });
 
